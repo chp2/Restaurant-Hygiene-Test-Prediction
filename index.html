@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Hygiene Test</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+        }
+        p {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+        }
+        select {
+            height: 150px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            font-weight: bold;
+            background-color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurant Hygiene Test</h1>
+        <p>Welcome to the restaurant hygiene test. You are able to test some restaurants in California(zipcode 98101~98199) and see whether the restaurant passed or failed the hygiene test</p>
+        <div class="form-group">
+            <label for="restaurant-name">Restaurant Name</label>
+            <input type="text" id="restaurant-name">
+        </div>
+        <div class="form-group">
+            <label for="zipcode">Zipcode(Make sure you are typing in 5 digit numbers)</label>
+            <input type="text" id="zipcode">
+        </div>
+        <div class="form-group">
+            <label for="rating">Rating (0~5)</label>
+            <input type="number" id="rating" min="0" max="5">
+        </div>
+        <div class="form-group">
+            <label for="cuisines">Cuisines(Press ctrl to select multiple cuisines)</label>
+            <select id="cuisines" multiple>
+                <option value="Afghan">Afghan</option>
+                <option value="African">African</option>
+                <option value="American (New)">American (New)</option>
+                <option value="American (Traditional)">American (Traditional)</option>
+                <option value="Asian Fusion">Asian Fusion</option>
+                <option value="Australian">Australian</option>
+                <option value="Barbeque">Barbeque</option>
+                <option value="Basque">Basque</option>
+                <option value="Belgian">Belgian</option>
+                <option value="Brazilian">Brazilian</option>
+                <option value="Breakfast & Brunch">Breakfast & Brunch</option>
+                <option value="British">British</option>
+                <option value="Buffets">Buffets</option>
+                <option value="Burgers">Burgers</option>
+                <option value="Cafes">Cafes</option>
+                <option value="Cajun/Creole">Cajun/Creole</option>
+                <option value="Cambodian">Cambodian</option>
+                <option value="Cantonese">Cantonese</option>
+                <option value="Caribbean">Caribbean</option>
+                <option value="Cheesesteaks">Cheesesteaks</option>
+                <option value="Chicken Wings">Chicken Wings</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Colombian">Colombian</option>
+                <option value="Comfort Food">Comfort Food</option>
+                <option value="Creperies">Creperies</option>
+                <option value="Cuban">Cuban</option>
+                <option value="Delis">Delis</option>
+                <option value="Diners">Diners</option>
+                <option value="Dim Sum">Dim Sum</option>
+                <option value="Egyptian">Egyptian</option>
+                <option value="Ethiopian">Ethiopian</option>
+                <option value="Fast Food">Fast Food</option>
+                <option value="Filipino">Filipino</option>
+                <option value="Fish & Chips">Fish & Chips</option>
+                <option value="Fondue">Fondue</option>
+                <option value="Food Court">Food Court</option>
+                <option value="Food Stands">Food Stands</option>
+                <option value="French">French</option>
+                <option value="Gastropubs">Gastropubs</option>
+                <option value="German">German</option>
+                <option value="Gluten-Free">Gluten-Free</option>
+                <option value="Greek">Greek</option>
+                <option value="Halal">Halal</option>
+                <option value="Haitian">Haitian</option>
+                <option value="Hawaiian">Hawaiian</option>
+                <option value="Himalayan/Nepalese">Himalayan/Nepalese</option>
+                <option value="Hot Dogs">Hot Dogs</option>
+                <option value="Hot Pot">Hot Pot</option>
+                <option value="Indian">Indian</option>
+                <option value="Indonesian">Indonesian</option>
+                <option value="Irish">Irish</option>
+                <option value="Italian">Italian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Korean">Korean</option>
+                <option value="Kosher">Kosher</option>
+                <option value="Laotian">Laotian</option>
+                <option value="Latin American">Latin American</option>
+                <option value="Lebanese">Lebanese</option>
+                <option value="Live/Raw Food">Live/Raw Food</option>
+                <option value="Malaysian">Malaysian</option>
+                <option value="Mediterranean">Mediterranean</option>
+                <option value="Mexican">Mexican</option>
+                <option value="Middle Eastern">Middle Eastern</option>
+                <option value="Modern European">Modern European</option>
+                <option value="Mongolian">Mongolian</option>
+                <option value="Moroccan">Moroccan</option>
+                <option value="Pakistani">Pakistani</option>
+                <option value="Persian/Iranian">Persian/Iranian</option>
+                <option value="Pizza">Pizza</option>
+                <option value="Polish">Polish</option>
+                <option value="Puerto Rican">Puerto Rican</option>
+                <option value="Russian">Russian</option>
+                <option value="Salad">Salad</option>
+                <option value="Salvadoran">Salvadoran</option>
+                <option value="Sandwiches">Sandwiches</option>
+                <option value="Scandinavian">Scandinavian</option>
+                <option value="Scottish">Scottish</option>
+                <option value="Seafood">Seafood</option>
+                <option value="Senegalese">Senegalese</option>
+                <option value="Shanghainese">Shanghainese</option>
+                <option value="Soul Food">Soul Food</option>
+                <option value="Soup">Soup</option>
+                <option value="Southern">Southern</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Steakhouses">Steakhouses</option>
+                <option value="Sushi Bars">Sushi Bars</option>
+                <option value="Szechuan">Szechuan</option>
+                <option value="Tapas Bars">Tapas Bars</option>
+                <option value="Tapas/Small Plates">Tapas/Small Plates</option>
+                <option value="Tex-Mex">Tex-Mex</option>
+                <option value="Thai">Thai</option>
+                <option value="Trinidadian">Trinidadian</option>
+                <option value="Turkish">Turkish</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Venezuelan">Venezuelan</option>
+                <option value="Vietnamese">Vietnamese</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="review-text">Review Text</label>
+            <textarea id="review-text"></textarea>
+        </div>
+        <div class="button-container">
+            <button id="hygiene-test-button">Hygiene Test</button>
+            <div id="result">Result: </div>
+        </div>
+    </div>
+
+    <script>
+        // Attach event listener to the button
+        d3.select("#hygiene-test-button").on("click", function() {
+            // Retrieve input values
+            const restaurantName = d3.select("#restaurant-name").property("value");
+            const zipcode = d3.select("#zipcode").property("value");
+            const rating = d3.select("#rating").property("value");
+            const cuisines = Array.from(d3.select("#cuisines").property("selectedOptions"), option => option.value).join(", ");
+            const reviewText = d3.select("#review-text").property("value");
+
+            // Construct the resultText
+            let resultText = `Restaurant: ${restaurantName}, Zipcode: ${zipcode}, Rating: ${rating}, Cuisines: ${cuisines}, Review: ${reviewText}`;
+
+            // Send resultText to the Python server
+            fetch('http://127.0.0.1:5000/hygiene_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ resultText: resultText })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Display the result from the server
+                d3.select("#result").text("Result: " + data.resultText);
+            })
+            .catch((error) => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
