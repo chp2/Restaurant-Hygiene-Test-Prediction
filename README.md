@@ -24,10 +24,10 @@ Finally, the user presses the “Hygiene Test” button to see the results. The 
 of the restaurant and a message “Passed!” or “Failed!”. For caution, if the user inputs the zip code in 
 wrong, or inputs the rating without decimal point, the result will show simply “Failed!” 
 
-4. A working URL. 
+# 4. A working URL. 
 http://ec2-43-203-173-84.ap-northeast-2.compute.amazonaws.com/
 
-5. Novelty of the system 
+# 5. Novelty of the system 
 The novelty of this system is that it combined the numerical values and the textual data to construct 
 the feature table for classification. It converted the textual data into a topic vector using topic 
 modeling. It can be considered that using this kind of feature provides a better prediction than using 
